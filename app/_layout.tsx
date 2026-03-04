@@ -28,7 +28,7 @@ function RootNavigator() {
 
   return (
     <View
-      className={cn("flex-1 px-2", isDarkColorScheme ? "dark" : "")}
+      className={cn("flex-1 px-2 bg-background", isDarkColorScheme ? "dark" : "")}
       style={{
         paddingTop: insets.top,
       }}

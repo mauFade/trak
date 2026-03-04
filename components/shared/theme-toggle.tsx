@@ -1,10 +1,12 @@
 import { useTheme } from "@/context/theme-provider";
+import { THEME } from "@/lib/theme";
 import * as Haptics from "expo-haptics";
 import { Moon, Sun } from "lucide-react-native";
 import { Pressable, View } from "react-native";
 
 export default function ThemeToggleButton() {
   const { setTheme, isDarkColorScheme } = useTheme();
+  const colorScheme = isDarkColorScheme ? "dark" : "light";
 
   const toggleTheme = () => {
     const newTheme = isDarkColorScheme ? "light" : "dark";
@@ -15,8 +17,7 @@ export default function ThemeToggleButton() {
     Haptics.selectionAsync().catch(() => {});
   };
 
-  // Cores dos ícones baseadas no tema
-  const iconColor = isDarkColorScheme ? "#ffffff" : "#000000";
+  const iconColor = THEME[colorScheme].foreground;
 
   return (
     <Pressable
