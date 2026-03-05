@@ -1,44 +1,42 @@
+import ThemeToggleButton from "@/components/shared/theme-toggle";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import { Input } from "@/components/ui/input";
 import { StyledText } from "@/components/ui/text";
 import { useAuth } from "@/context/auth-provider";
-import { cn } from "@/lib/utils";
-import { Eye, EyeOff, Lock, Mail } from "lucide-react-native";
+import { ArrowRight, BadgeDollarSign, Lock, Mail } from "lucide-react-native";
 import React, { useState } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, View } from "react-native";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [emailFocused, setEmailFocused] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
   const { signIn } = useAuth();
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert("Erro", "Preencha todos os campos");
+      Alert.alert(
+        "Missing information",
+        "Please enter your email and password.",
+      );
       return;
     }
 
     setIsLoading(true);
 
     try {
-      await signIn("test", { id: "1", name: "User", email });
+      await signIn("test", {
+        id: "1",
+        name: email || "User",
+        email: email || "user@example.com",
+      });
 
-      Alert.alert("Sucesso", "Login realizado com sucesso!");
+      Alert.alert("Success", "Login successful!");
     } catch (error) {
       Alert.alert(
-        "Erro",
-        error instanceof Error ? error.message : "Erro desconhecido",
+        "Error",
+        error instanceof Error ? error.message : "Unknown error",
       );
     } finally {
       setIsLoading(false);
@@ -48,81 +46,95 @@ export default function Login() {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      className="flex-1 bg-zinc-950"
+      style={{ flex: 1 }}
     >
-      <View className="flex-1 justify-center px-6">
-        <View className="mb-10">
-          <StyledText className="text-3xl font-bold text-zinc-50 mb-2">
-            Bem-vindo
-          </StyledText>
-          <StyledText className="text-zinc-400 text-base">
-            Faça login para continuar
-          </StyledText>
+      <View className="flex-1 bg-background px-6 pb-8">
+        {/* Top bar with theme toggle */}
+        <View className="items-end pt-4">
+          <ThemeToggleButton />
         </View>
 
+        {/* Main content */}
+        <View className="flex-1 items-center justify-center">
+          {/* Logo */}
+          <View className="mb-8 items-center">
+            <View className="mb-4 h-20 w-20 items-center justify-center rounded-full border-2 border-primary/80 bg-primary/10">
+              <Icon as={BadgeDollarSign} className="text-primary" size={32} />
+            </View>
+
+            <StyledText variant="h3" className="text-foreground text-center">
+              Welcome to Trak
+            </StyledText>
+            <StyledText
+              variant="muted"
+              className="mt-1 text-center px-6 text-muted-foreground"
+            >
+              Track your finances, simply and beautifully.
+            </StyledText>
+
+            {/* accent underline */}
+            <View className="mt-3 h-1 w-16 rounded-full bg-accent/80" />
+          </View>
+
+          {/* Form */}
+          <View className="w-full gap-5">
+            <View className="gap-2">
+              <StyledText variant="small" className="text-muted-foreground">
+                Email
+              </StyledText>
+              <View className="flex-row items-center gap-2 rounded-full border border-input bg-muted/40 px-4 py-3 shadow-sm shadow-black/5">
+                <Icon as={Mail} className="text-muted-foreground" size={18} />
+                <Input
+                  className="flex-1 border-0 p-2 h-9"
+                  placeholder="Enter your email"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  value={email}
+                  onChangeText={setEmail}
+                  editable={!isLoading}
+                />
+              </View>
+            </View>
+
+            <View className="gap-2">
+              <StyledText variant="small" className="text-muted-foreground">
+                Password
+              </StyledText>
+              <View className="flex-row items-center gap-2 rounded-full border border-input bg-muted/40 px-4 py-3 shadow-sm shadow-black/5">
+                <Icon as={Lock} className="text-muted-foreground" size={18} />
+                <Input
+                  className="flex-1 border-0 p-2 h-9"
+                  placeholder="Create password"
+                  secureTextEntry
+                  value={password}
+                  onChangeText={setPassword}
+                  editable={!isLoading}
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* Bottom actions */}
         <View className="gap-4">
-          <View
-            className={cn(
-              "flex-row items-center h-14 bg-zinc-900 rounded-xl px-4 border",
-              emailFocused ? "border-emerald-500" : "border-zinc-800",
-            )}
-          >
-            <Mail color={emailFocused ? "#10b981" : "#a1a1aa"} size={20} />
-            <Input
-              className="flex-1 ml-3 text-zinc-50 text-base"
-              placeholder="Seu e-mail"
-              placeholderTextColor="#a1a1aa"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              value={email}
-              onChangeText={setEmail}
-              onFocus={() => setEmailFocused(true)}
-              onBlur={() => setEmailFocused(false)}
-            />
-          </View>
-
-          <View
-            className={cn(
-              "flex-row items-center h-14 bg-zinc-900 rounded-xl px-4 border",
-              passwordFocused ? "border-emerald-500" : "border-zinc-800",
-            )}
-          >
-            <Lock color={passwordFocused ? "#10b981" : "#a1a1aa"} size={20} />
-            <Input
-              className="flex-1 ml-3 text-zinc-50 text-base"
-              placeholder="Sua senha"
-              placeholderTextColor="#a1a1aa"
-              secureTextEntry={!showPassword}
-              value={password}
-              onChangeText={setPassword}
-              onFocus={() => setPasswordFocused(true)}
-              onBlur={() => setPasswordFocused(false)}
-            />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              {showPassword ? (
-                <EyeOff color="#a1a1aa" size={20} />
-              ) : (
-                <Eye color="#a1a1aa" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity
-            onPress={handleLogin}
+          <Button
+            className="w-full h-10 rounded-full mt-2"
             disabled={isLoading}
-            className={cn(
-              "h-14 rounded-xl flex-row items-center justify-center mt-4",
-              isLoading
-                ? "bg-emerald-500/70"
-                : "bg-emerald-500 active:bg-emerald-600",
-            )}
+            onPress={handleLogin}
           >
-            {isLoading ? (
-              <ActivityIndicator color="#ffffff" />
-            ) : (
-              <Text className="text-zinc-50 font-semibold text-lg">Enter</Text>
-            )}
-          </TouchableOpacity>
+            <StyledText className="text-white font-semibold">
+              {isLoading ? "Signing in..." : "Login"}
+            </StyledText>
+            <Icon as={ArrowRight} className="text-white ml-2" size={18} />
+          </Button>
+
+          <StyledText variant="muted" className="text-center mt-1">
+            Don&apos;t have an account?{" "}
+            <StyledText variant="muted" className="font-semibold text-accent">
+              Sign up
+            </StyledText>
+          </StyledText>
         </View>
       </View>
     </KeyboardAvoidingView>

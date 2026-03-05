@@ -1,61 +1,78 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   :root {
-    --background: 166 76% 97%;
-    --foreground: 176 61% 19%;
-    --card: 166 76% 97%;
-    --card-foreground: 176 61% 19%;
-    --popover: 166 76% 97%;
-    --popover-foreground: 176 61% 19%;
-    --primary: 175 77% 26%;
-    --primary-foreground: 166 76% 97%;
-    --secondary: 167 77% 91%;
-    --secondary-foreground: 176 61% 19%;
-    --muted: 167 77% 91%;
-    --muted-foreground: 175 84% 32%;
-    --accent: 167 77% 80%;
-    --accent-foreground: 176 61% 19%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 167 77% 80%;
-    --input: 167 77% 80%;
-    --ring: 175 84% 32%;
+    /* Light mode – clean, optimistic fintech */
+    --background: 170 40% 98%; /* almost white with a hint of teal */
+    --foreground: 200 40% 15%; /* deep bluish ink for text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 200 40% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 40% 15%;
+
+    --primary: 174 70% 35%; /* main teal */
+    --primary-foreground: 180 100% 97%; /* almost white on teal */
+
+    --secondary: 174 55% 92%; /* soft teal-tinted surface */
+    --secondary-foreground: 200 40% 20%;
+
+    --muted: 190 20% 92%; /* cool neutral for subtle areas */
+    --muted-foreground: 200 15% 40%; /* subdued gray-blue text */
+
+    --accent: 18 85% 62%; /* warm coral accent (happy, for highlights) */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 190 20% 85%;
+    --input: 190 20% 90%;
+    --ring: 174 70% 35%;
+
     --radius: 0.625rem;
-    --chart-1: 173 80% 40%;
-    --chart-2: 170 64% 51%;
-    --chart-3: 168 74% 65%;
-    --chart-4: 176 69% 22%;
-    --chart-5: 178 84% 10%;
+
+    /* Charts – teal-centric with coral spike */
+    --chart-1: 174 70% 35%;
+    --chart-2: 190 60% 45%;
+    --chart-3: 170 55% 55%;
+    --chart-4: 210 25% 30%; /* navy-ish for structure */
+    --chart-5: 18 85% 62%; /* coral */
   }
 
   .dark:root {
-    /* Very dark teal background and surfaces; teal foregrounds */
-    --background: 178 70% 1%;
-    --foreground: 166 76% 97%;
-    --card: 178 70% 1%;
-    --card-foreground: 166 76% 97%;
-    --popover: 178 70% 1%;
-    --popover-foreground: 166 76% 97%;
-    --primary: 170 64% 51%;
-    --primary-foreground: 178 70% 1%;
-    --secondary: 176 55% 10%;
-    --secondary-foreground: 166 76% 97%;
-    --muted: 176 55% 10%;
-    --muted-foreground: 170 64% 51%;
-    --accent: 175 77% 26%;
-    --accent-foreground: 166 76% 97%;
-    --destructive: 0 70.9% 59.4%;
+    /* Dark mode – serious, high-contrast, still teal-forward */
+    --background: 210 25% 6%; /* deep navy/blue-black */
+    --foreground: 180 15% 92%; /* soft off-white */
+
+    --card: 210 25% 9%;
+    --card-foreground: 180 15% 92%;
+
+    --popover: 210 25% 9%;
+    --popover-foreground: 180 15% 92%;
+
+    --primary: 174 70% 45%; /* brighter teal on dark */
+    --primary-foreground: 210 25% 6%;
+
+    --secondary: 210 18% 14%; /* subtle raised surface */
+    --secondary-foreground: 180 15% 92%;
+
+    --muted: 210 18% 16%;
+    --muted-foreground: 190 12% 65%;
+
+    --accent: 18 85% 62%; /* same coral accent for continuity */
+    --accent-foreground: 210 25% 6%;
+
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 176 55% 10%;
-    --input: 176 55% 10%;
-    --ring: 170 64% 51%;
-    --chart-1: 170 64% 51%;
-    --chart-2: 168 74% 65%;
-    --chart-3: 173 80% 40%;
-    --chart-4: 166 76% 91%;
-    --chart-5: 175 77% 26%;
+
+    --border: 210 20% 18%;
+    --input: 210 20% 18%;
+    --ring: 174 70% 45%;
+
+    --chart-1: 174 70% 50%;
+    --chart-2: 190 60% 55%;
+    --chart-3: 170 55% 60%;
+    --chart-4: 210 20% 40%;
+    --chart-5: 18 85% 62%;
   }
 }

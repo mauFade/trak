@@ -1,29 +1,28 @@
-import ThemeToggleButton from "@/components/shared/theme-toggle";
-import { StyledText } from "@/components/ui/text";
+import { useTheme } from "@/context/theme-provider";
+import { NAV_THEME } from "@/lib/theme";
 import { Stack } from "expo-router";
-import { View } from "react-native";
+import { useColorScheme as useNativewindColorScheme } from "nativewind";
+import { useEffect } from "react";
 
 export default function AppLayout() {
+  const { colorScheme } = useTheme();
+  const { setColorScheme } = useNativewindColorScheme();
+
+  useEffect(() => {
+    setColorScheme(colorScheme);
+  }, [colorScheme]);
+
   return (
-    <View className="flex-1">
-      <View className="pt-4 mb-2 flex flex-row justify-between">
-        <View>
-          <StyledText className="text-2xl font-bold text-foreground">
-            Welcome!
-          </StyledText>
-
-          <StyledText className="mt-1 text-sm text-muted-foreground">
-            Check your finances
-          </StyledText>
-        </View>
-
-        <ThemeToggleButton />
-      </View>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
-    </View>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        headerStyle: {
+          backgroundColor: NAV_THEME[colorScheme].colors.background,
+        },
+        contentStyle: {
+          backgroundColor: NAV_THEME[colorScheme].colors.background,
+        },
+      }}
+    />
   );
 }

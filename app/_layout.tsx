@@ -48,6 +48,7 @@ function RootNavigator() {
       )}
       style={{
         paddingTop: insets.top,
+        paddingBottom: insets.bottom,
       }}
     >
       <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
